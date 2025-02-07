@@ -24,12 +24,12 @@ export default {
                 </RouterLink>
             </li>
             <li class="nav-item">
-                <RouterLink to="/series" class="nav-link text-white">
+                <RouterLink to="/films" class="nav-link text-white">
                     <span>Film</span>
                 </RouterLink>
             </li>
             <li class="nav-item">
-                <RouterLink to="/movies" class="nav-link text-white">
+                <RouterLink to="/series" class="nav-link text-white">
                     <span>Serie</span>
                 </RouterLink>
             </li>

@@ -25,8 +25,22 @@ export default {
 
   <AppHeaderMobile class="d-lg-none" />
 
-  <router-view />
+  <main>
+    <router-view />
+  </main>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+@media (min-width: 1025px) {
+  main {
+    padding-left: 150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  main {
+    padding-bottom: 50px;
+  }
+}
+</style>

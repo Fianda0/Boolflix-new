@@ -1,7 +1,11 @@
 <script>
 import { fetchData } from '@/api.js'; // Importa la funzione per chiamare l'API
+import Modal from './Modal.vue';
 
 export default {
+    components: {
+        Modal, // Registriamo il componente Modal
+    },
     props: {
         category: {
             type: String,
@@ -20,7 +24,8 @@ export default {
             movies: [],           // Array per i film
             tvShows: [],          // Array per le serie TV
             scrollPosition: 0,    // Posizione di scorrimento
-            scrollAmount: 300     // Quantità di scorrimento
+            scrollAmount: 300, // Quantità di scorrimento
+            showModal: false,
         };
     },
     methods: {
@@ -68,12 +73,21 @@ export default {
             return genre ? genre.id : null; // Restituisce l'ID del genere o null se non esiste
         },
 
-        // Funzione helper per ottenere l'URL dell'immagine
-        getImg(path) {
-            return path ? `https://image.tmdb.org/t/p/original${path}` : '/placeholder.jpg';
+        closeModal() {
+            this.showModal = false;
+            this.selectedMovie = null;
         },
 
-        // Scorrimento a sinistra
+        getImg(posterPath) {
+            // il tuo metodo esistente per ottenere l'URL dell'immagine
+            return `https://image.tmdb.org/t/p/w500${posterPath}`
+        },
+
+        openModal(movie) {
+            this.selectedMovie = movie; // Imposta il film selezionato
+            this.showModal = true; // Mostra il modale
+        },
+
         scrollLeft() {
             const carousel = this.$refs.carouselContainer;
 
@@ -87,7 +101,6 @@ export default {
             }
         },
 
-        // Scorrimento a destra con ritorno alla prima card se necessario
         scrollRight() {
             const carousel = this.$refs.carouselContainer;
             const maxScroll = carousel.scrollWidth - carousel.clientWidth;
@@ -119,7 +132,7 @@ export default {
 
             <!-- Contenitore delle card -->
             <div class="movie-cards-container" ref="carouselContainer">
-                <div v-for="(movie, index) in movies" :key="index" class="movie-card">
+                <div v-for="(movie, index) in movies" :key="index" class="movie-card" @click="openModal(movie)">
                     <span class="my-text-red fw-bold b-movie">B</span>
                     <img :src="getImg(movie.poster_path)" alt="Poster" class="movie-poster">
                 </div>
@@ -130,6 +143,8 @@ export default {
                 &#8594;
             </button>
         </div>
+
+        <Modal :show="showModal" :movie="selectedMovie" @close="closeModal" />
     </div>
 </template>
 
