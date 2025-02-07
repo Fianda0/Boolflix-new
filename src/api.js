@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     baseURL: baseURL,  // Imposta baseURL
     params: {
         api_key: apiKey,
-        language: 'it-IT',
+        language: 'us-US',
     },
 });
 

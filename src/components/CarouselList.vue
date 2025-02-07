@@ -42,6 +42,7 @@ export default {
 
                 // Trova l'ID del genere corrispondente al nome
                 const genreId = this.getGenreId(this.genre, genres); // Passa anche la lista dei generi
+                console.log(genres);
 
                 if (genreId) {
                     // Esegui la chiamata per recuperare film e serie TV
